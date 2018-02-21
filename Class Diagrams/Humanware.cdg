@@ -3,13 +3,9 @@
 <ClassDiagram name="Humanware">
   <ClassDiagramComponents>
     <Class name="HumanWare" package="humanwarepack" visibility="public" xPosition="816.0" yPosition="70.0">
-      <Fields>
-        <Field name="untitledField" type="Object" visibility="private"/>
-      </Fields>
+      <Fields/>
       <Constructors/>
-      <Methods>
-        <Method name="untitledMethod" returnType="void" visibility="public"/>
-      </Methods>
+      <Methods/>
     </Class>
     <Class name="Peticion" package="humanwarepack
 " visibility="public" xPosition="369.0" yPosition="297.0">
@@ -20,7 +16,6 @@
       <Constructors/>
       <Methods>
         <Method name="validarPeticion" returnType="boolean" visibility="public"/>
-        <Method name="untitledMethod" returnType="void" visibility="public"/>
       </Methods>
     </Class>
     <Class name="Usuario" package="humanwarepack" visibility="public" xPosition="666.0" yPosition="269.0">
@@ -34,9 +29,10 @@
         <Method name="getNombre" returnType="String" visibility="public"/>
         <Method name="getNumero" returnType="String" visibility="public"/>
         <Method name="crearUsuario" returnType="void" visibility="public"/>
+        <Method name="cartaAceptado" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Empresa" package="humanwarepack" visibility="public" xPosition="375.0" yPosition="519.0">
+    <Class name="Empresa" package="humanwarepack" visibility="public" xPosition="367.0" yPosition="519.0">
       <Fields>
         <Field name="nombre" type="String" visibility="private"/>
         <Field name="numero" type="int" visibility="private"/>
@@ -44,17 +40,18 @@
       <Constructors/>
       <Methods>
         <Method name="generarPeticion" returnType="void" visibility="public"/>
-        <Method name="eliminarVacante" returnType="void" visibility="public"/>
-        <Method name="existe" returnType="boolean" visibility="public"/>
+        <Method name="eliminarPeticion" returnType="void" visibility="public"/>
+        <Method name="existeEmpresa" returnType="boolean" visibility="public"/>
+        <Method name="isPeticionLlena" returnType="boolean" visibility="public"/>
       </Methods>
     </Class>
-    <Enum name="TipoUsuario" package="humanwarepack" visibility="public" xPosition="1381.0" yPosition="377.0">
+    <Enum name="TipoUsuario" package="humanwarepack" visibility="public" xPosition="1376.0" yPosition="47.0">
       <Literals>
         <Literal name="Usuario"/>
         <Literal name="Evaluador"/>
       </Literals>
     </Enum>
-    <Class name="Archivador" package="humanwarepack" visibility="public" xPosition="937.0" yPosition="288.0">
+    <Class name="Archivador" package="humanwarepack" visibility="public" xPosition="974.0" yPosition="288.0">
       <Fields>
         <Field name="nombreDeArchivo" type="String" visibility="private"/>
       </Fields>
@@ -65,7 +62,7 @@
         <Method name="actualizarArchivo" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="SolicitudCandidato" package="humanwarepack" visibility="public" xPosition="671.0" yPosition="537.0">
+    <Class name="SolicitudCandidato" package="humanwarepack" visibility="public" xPosition="662.0" yPosition="535.0">
       <Fields>
         <Field name="nombre" type="String" visibility="private"/>
         <Field name="email" type="String" visibility="private"/>
@@ -75,15 +72,51 @@
       <Constructors/>
       <Methods>
         <Method name="aplicarPeticion" returnType="void" visibility="public"/>
+        <Method name="puntajeHabilidades" returnType="float" visibility="public"/>
+        <Method name="cartaAceptado" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Enum name="TipoJornada" package="humanwarepack" visibility="public" xPosition="1381.0" yPosition="219.0">
+    <Enum name="TipoJornada" package="humanwarepack" visibility="public" xPosition="1218.0" yPosition="47.0">
       <Literals>
         <Literal name="Completa"/>
         <Literal name="Parcial"/>
         <Literal name="Ambas"/>
       </Literals>
     </Enum>
+    <Class name="Lista" package="" visibility="public" xPosition="983.0" yPosition="519.0">
+      <Fields>
+        <Field name="inicio" type="Nodo" visibility="private"/>
+        <Field name="tamano" type="int" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="estaVacia" returnType="boolean" visibility="public"/>
+        <Method name="getTamano" returnType="int" visibility="public"/>
+        <Method name="agregarNodo" returnType="void" visibility="public"/>
+        <Method name="eliminarNodo" returnType="void" visibility="public"/>
+        <Method name="actualizarNodo" returnType="void" visibility="public"/>
+        <Method name="crearLista" returnType="void" visibility="public"/>
+        <Method name="eliminarLista" returnType="void" visibility="public"/>
+        <Method name="actualizarLista" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Nodo" package="" visibility="public" xPosition="1230.0" yPosition="567.0">
+      <Fields>
+        <Field name="nextnodo" type="Nodo" visibility="private"/>
+        <Field name="contenido" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getContenido" returnType="String" visibility="public"/>
+        <Method name="getNextnodo" returnType="Nodo" visibility="public"/>
+        <Method name="setContenido" returnType="void" visibility="public">
+          <Argument type="String" name="valor"/>
+        </Method>
+        <Method name="setNextnodo" returnType="void" visibility="public">
+          <Argument type="Nodo" name="next"/>
+        </Method>
+      </Methods>
+    </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
     <HasRelation name="nombre_empresa" source="humanwarepack
@@ -92,7 +125,9 @@
 .Peticion" target="humanwarepack.Usuario" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="candidato" source="humanwarepack.Usuario" target="humanwarepack.SolicitudCandidato" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="usuario" source="humanwarepack.HumanWare" target="humanwarepack.Usuario" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <UseRelation name="lista" source="humanwarepack.Archivador" target="Lista" sourceCardinality="1..1" targetCardinality="0..*"/>
     <HasRelation name="nombredearchivo" source="humanwarepack.Usuario" target="humanwarepack.Archivador" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="root" source="Lista" target="Nodo" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <HasRelation name="archivos" source="humanwarepack.HumanWare" target="humanwarepack.Archivador" type="Aggregation" sourceCardinality="0..1" targetCardinality="0..*" collectionType="List"/>
   </ClassDiagramRelations>
 </ClassDiagram>
